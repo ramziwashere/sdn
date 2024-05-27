@@ -11,11 +11,11 @@ class MyTopo(Topo):
         pc2_site_one = self.addHost('PC2', ip='192.168.1.11')
         pc3_site_two = self.addHost('PC3', ip='192.168.1.12')
         pc4_site_two = self.addHost('PC4', ip='192.168.1.13')
-        internet_pc_edge = self.addHost('Internet PC', ip='192.168.1.254')
+        internet_pc_edge = self.addHost('InternetPC', ip='192.168.1.254')
 
         # Add servers
-        db_server_site_one = self.addHost('DB Server', ip='192.168.1.51')
-        web_server_site_one = self.addHost('Web Server', ip='192.168.1.50')
+        db_server_site_one = self.addHost('DBServer', ip='192.168.1.51')
+        web_server_site_one = self.addHost('WebServer', ip='192.168.1.50')
 
         # Add switches
         server_farm_site_one = self.addSwitch('s1')
