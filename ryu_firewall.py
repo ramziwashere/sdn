@@ -142,10 +142,10 @@ class SimpleSwitch13(app_manager.RyuApp):
         elif ippkt and ipp.src=="192.168.1.254" and ipp.dst=="192.168.1.13":
             out_port=''
             actions = []
-            
+
         # ---------------DROP INTERNET PACKET WHICH IS NOT HTTP (PORT: 80)
 
-        elif ippkt and tcpp.dst_port != 80:
+        elif ippkt and ippkt and ipp.src=="192.168.1.254" and ipp.dst=="192.168.1.50" and tcpp.dst_port != 80:
             out_port=''
             actions=[]
         #  ---------------DROP PACKET FROM PCS TO DB SERVER-----------------------
