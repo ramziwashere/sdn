@@ -1,57 +1,47 @@
-"""Custom topology example
-
-Two directly connected switches plus a host for each switch:
-
-   host --- switch --- switch --- host
-
-Adding the 'topos' dict with a key/value pair to generate our newly defined
-topology enables one to pass in '--topo=mytopo' from the command line.
-"""
-
 from mininet.topo import Topo
 
-class MyTopo( Topo ):
-    "Simple topology example."
+class MyTopo(Topo):
+    "Custom topology example with two directly connected switches and a host for each switch."
 
-    def build( self ):
-        "Create custom topo."
+    def build(self):
+        "Create custom topology."
 
         # Add hosts
-        PC1_SITEONE = self.addHost( 'PC1', ip='192.168.1.10')
-        PC2_SITEONE = self.addHost( 'PC2', ip='192.168.1.11' )
-        PC3_SITETWO = self.addHost( 'PC3', ip='192.168.1.12')
-        PC4_SITETWO = self.addHost( 'PC4', ip='192.168.1.13' )
-        INTERNET_PC_EDGE= self.addHost( 'Internet PC', ip='192.168.1.254' )
-        
-        # Add Servers
-        DB_SERVER_SITEONE = self.addHost( 'DB Server', ip='192.168.1.51' )
-        WEB_SERVER_SITEONE = self.addHost( 'Web Server', ip='192.168.1.50' )
+        pc1_site_one = self.addHost('PC1', ip='192.168.1.10')
+        pc2_site_one = self.addHost('PC2', ip='192.168.1.11')
+        pc3_site_two = self.addHost('PC3', ip='192.168.1.12')
+        pc4_site_two = self.addHost('PC4', ip='192.168.1.13')
+        internet_pc_edge = self.addHost('Internet PC', ip='192.168.1.254')
 
-        # Add Switches
-        SERVER_FARM_SITEONE = self.addSwitch( 's1' )
-        SITEONE = self.addSwitch( 's2' )
-        SITETWO = self.addSwitch( 's3' )
-        EDGE = self.addSwitch( 's4' )
+        # Add servers
+        db_server_site_one = self.addHost('DB Server', ip='192.168.1.51')
+        web_server_site_one = self.addHost('Web Server', ip='192.168.1.50')
 
-        # Add links for Server Farm 
-        self.addLink( DB_SERVER_SITEONE, SERVER_FARM_SITEONE)
-        self.addLink( WEB_SERVER_SITEONE, SERVER_FARM_SITEONE)
+        # Add switches
+        server_farm_site_one = self.addSwitch('s1')
+        site_one = self.addSwitch('s2')
+        site_two = self.addSwitch('s3')
+        edge = self.addSwitch('s4')
+
+        # Add links for Server Farm
+        self.addLink(db_server_site_one, server_farm_site_one)
+        self.addLink(web_server_site_one, server_farm_site_one)
 
         # Add links for Site One
-        self.addLink( PC1_SITEONE, SITEONE )
-        self.addLink( PC2_SITEONE, SITEONE )
+        self.addLink(pc1_site_one, site_one)
+        self.addLink(pc2_site_one, site_one)
 
         # Add links for Site Two
-        self.addLink( PC3_SITETWO, SITETWO )
-        self.addLink( PC4_SITETWO, SITETWO )
+        self.addLink(pc3_site_two, site_two)
+        self.addLink(pc4_site_two, site_two)
 
         # Add link for Edge
-        self.addLink( INTERNET_PC_EDGE, EDGE )
+        self.addLink(internet_pc_edge, edge)
 
         # Add link for Switches
-        self.addLink( SERVER_FARM_SITEONE, SITEONE )
-        self.addLink( SITEONE, EDGE )
-        self.addLink( EDGE, SITETWO )
+        self.addLink(server_farm_site_one, site_one)
+        self.addLink(site_one, edge)
+        self.addLink(edge, site_two)
 
 
-topos = { 'mytopo': ( lambda: MyTopo() ) }
+topos = {'mytopo': (lambda: MyTopo())}
