@@ -126,7 +126,46 @@ class SimpleSwitch13(app_manager.RyuApp):
         if ippkt and ipp.src=="192.168.1.254" and ipp.dst=="192.168.1.51":
             out_port=''
             actions = []
+
+        elif ippkt and ipp.src=="192.168.1.254" and ipp.dst=="192.168.1.10":
+            out_port=''
+            actions = []
+
+        elif ippkt and ipp.src=="192.168.1.254" and ipp.dst=="192.168.1.11":
+            out_port=''
+            actions = []
+
+        elif ippkt and ipp.src=="192.168.1.254" and ipp.dst=="192.168.1.12":
+            out_port=''
+            actions = []
+
+        elif ippkt and ipp.src=="192.168.1.254" and ipp.dst=="192.168.1.13":
+            out_port=''
+            actions = []
+            
+        # ---------------DROP INTERNET PACKET WHICH IS NOT HTTP (PORT: 80)
+
+        elif ippkt and tcpp.dst_port != 80:
+            out_port=''
+            actions=[]
+        #  ---------------DROP PACKET FROM PCS TO DB SERVER-----------------------
+
+        elif ippkt and ipp.src=="192.168.1.10" and ipp.dst=="192.168.1.51":
+            out_port=''
+            actions = [] 
         
+        elif ippkt and ipp.src=="192.168.1.11" and ipp.dst=="192.168.1.51":
+            out_port=''
+            actions = [] 
+
+        elif ippkt and ipp.src=="192.168.1.12" and ipp.dst=="192.168.1.51":
+            out_port=''
+            actions = [] 
+        
+        elif ippkt and ipp.src=="192.168.1.13" and ipp.dst=="192.168.1.51":
+            out_port=''
+            actions = [] 
+
         else: # if not blocking port, just allow based on mac address else, flood to discover
             if dst in self.mac_to_port[dpid]:
                 out_port = self.mac_to_port[dpid][dst]
